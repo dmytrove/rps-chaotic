@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors - Chaotic Simulations</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="simulation-selector">
+        <button class="button" onclick="switchSimulation('pendulum')">Pendulum Simulation</button>
+        <button class="button" onclick="switchSimulation('threebody')">Three Body Simulation</button>
+    </div>
+
+    <div class="game-info">
+        <div class="score">Player 1: <span id="score1">0</span> | Player 2: <span id="score2">0</span></div>
+        <div class="timer" id="timer">10</div>
+        <div class="result" id="result"></div>
+        <div class="history" id="history">
+            <div class="history-title">Match History</div>
+        </div>
+    </div>
+
+    <div class="hand-display player1" id="hand1">👊</div>
+    <div class="hand-display player2" id="hand2">👊</div>
+    
+    <div id="system-info" style="display: none;">
+        <div class="system-info player1" id="info1">System State: Stable</div>
+        <div class="system-info player2" id="info2">System State: Stable</div>
+    </div>
+
+    <div class="controls">
+        <div class="button-group">
+            <button class="button primary" onclick="startNewGame()">New Game</button>
+            <button class="button" onclick="run()">Run</button>
+            <button class="button" onclick="step()">Step</button>
+            <button class="autoplay-toggle" id="autoplayBtn" onclick="toggleAutoplay()">Start Autoplay</button>
+        </div>
+        <div class="slider-container">
+            <span class="slider-label">Simulation Steps:</span>
+            <input type="range" min="0" max="5" value="5" id="stepsSlider" class="slider">
+            <span class="slider-value" id="steps">10000</span>
+        </div>
+        <div id="speed-control" class="slider-container" style="display: none;">
+            <span class="slider-label">Speed:</span>
+            <input type="range" min="1" max="10" value="3" id="speedSlider" class="slider">
+            <span class="slider-value" id="speed">3x</span>
+        </div>
+    </div>
+
+    <canvas id="myCanvas"></canvas>
+
+    <script src="pendulum.js"></script>
+    <script src="threebody.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
