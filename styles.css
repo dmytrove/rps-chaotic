@@ -764,3 +764,115 @@ input:checked + .toggle-slider:before {
     font-size: 14px;
     color: #ccc;
 }
+
+/* Add styles for the simulation labels */
+.sim-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 5px;
+    text-align: center;
+    min-width: 70px;
+}
+
+.simulation-switch-container .sim-label:first-child {
+    color: #4ecdc4; /* Pendulum color */
+}
+
+.simulation-switch-container .sim-label:last-child {
+    color: #ff6b6b; /* Three-body color */
+}
+
+.autoplay-container .sim-label:first-child {
+    color: #cccccc; /* Manual color */
+}
+
+.autoplay-container .sim-label:last-child {
+    color: #ffd93d; /* Autoplay color */
+}
+
+/* Update the simulation toggle styles */
+.simulation-switch-container, .autoplay-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+}
+
+/* Ensure modals don't overlap */
+#game-info-modal .modal-content {
+    left: 0;
+    top: 0;
+    height: auto;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+#settings-modal .modal-content {
+    right: 0;
+    left: auto !important;
+    top: 0;
+    height: auto;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+@media (orientation: portrait) {
+    #game-info-modal .modal-content,
+    #settings-modal .modal-content {
+        width: 90%;
+        max-width: 90%;
+        left: 5% !important;
+        right: auto !important;
+    }
+    
+    #game-info-modal .modal-content {
+        top: 10px;
+    }
+    
+    #settings-modal .modal-content {
+        top: 10px;
+        max-height: 80vh;
+    }
+}
+
+@media (orientation: landscape) {
+    #game-info-modal .modal-content {
+        left: 10px !important;
+        width: 40%;
+        max-width: 450px;
+    }
+    
+    #settings-modal .modal-content {
+        right: 10px !important;
+        width: 40%;
+        max-width: 450px;
+    }
+}
+
+/* Add styles for the simulation icons */
+.sim-icon {
+    font-size: 18px;
+    margin: 0 5px;
+    text-align: center;
+    min-width: 24px;
+}
+
+.simulation-switch-container .sim-icon:first-child {
+    color: #4ecdc4; /* Pendulum color */
+}
+
+.simulation-switch-container .sim-icon:last-child {
+    color: #ff6b6b; /* Three-body color */
+}
+
+.autoplay-container .sim-icon:first-child {
+    color: #cccccc; /* Manual color */
+}
+
+.autoplay-container .sim-icon:last-child {
+    color: #ffd93d; /* Autoplay color */
+}

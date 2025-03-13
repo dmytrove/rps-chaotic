@@ -14,6 +14,11 @@
             src: url(https://ka-f.fontawesome.com/releases/v6.4.0/webfonts/free-fa-solid-900.woff2) format('woff2');
         }
     </style>
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="description" content="Rock Paper Scissors with chaotic pendulum and three-body simulations">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
 </head>
 <body>
     <div id="game-info-modal" class="modal">
@@ -82,20 +87,20 @@
         </div>
         <div class="mode-autoplay-controls">
             <div class="simulation-switch-container">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
+                <i class="fa-solid fa-pendulum sim-icon" title="Pendulum"></i>
                 <label class="toggle-switch simulation-toggle">
                     <input type="checkbox" id="simulationToggle" onclick="toggleSimulation()">
                     <span class="toggle-slider"></span>
                 </label>
-                <i class="fa-solid fa-bowling-ball"></i>
+                <i class="fa-solid fa-atom sim-icon" title="Three-Body"></i>
             </div>
             <div class="autoplay-container">
-                <i class="fa-solid fa-rotate-right"></i>
+                <i class="fa-solid fa-hand-point-up sim-icon" title="Manual"></i>
                 <label class="toggle-switch">
                     <input type="checkbox" id="autoplayToggle" onclick="toggleAutoplay()">
                     <span class="toggle-slider"></span>
                 </label>
-                <i class="fa-solid fa-arrows-rotate"></i>
+                <i class="fa-solid fa-rotate sim-icon" title="Autoplay"></i>
             </div>
         </div>
     </div>
@@ -105,5 +110,16 @@
     <script src="pendulum.js"></script>
     <script src="threebody.js"></script>
     <script src="main.js"></script>
+    <script src="service-worker.js"></script>
+    <script>
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed: ', err));
+            });
+        }
+    </script>
 </body>
 </html>

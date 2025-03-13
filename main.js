@@ -38,7 +38,7 @@ let scene = {
     timer: 10,
     timerInterval: null,
     matchHistory: [],
-    autoplay: false,
+    autoplay: true, // Enable autoplay by default
     autoplayTimeout: null,
     nextGameDelay: 3000,
     trailRasterization: {
@@ -46,7 +46,7 @@ let scene = {
         interval: 10, // seconds
         lastRasterTime: 0,
         fadeAmount: 0.05, // How much to fade the old trails on each rasterization
-        keepCompleteTrail: false, // New option to keep complete trail
+        keepCompleteTrail: true, // Keep complete trail by default
         adaptiveRasterization: true, // Enable adaptive rasterization based on performance
         minInterval: 2, // Minimum rasterization interval in seconds
         maxInterval: 15, // Maximum rasterization interval in seconds
@@ -582,12 +582,16 @@ function updateHistoryDisplay() {
         const resultClass = item.result.includes('1') ? 'win' : 
                           item.result.includes('2') ? 'lose' : 'draw';
         
+        // Convert move names to icons
+        const move1Icon = getMoveIcon(item.move1);
+        const move2Icon = getMoveIcon(item.move2);
+        
         const row = document.createElement('tr');
         row.className = resultClass;
         row.innerHTML = `
             <td>${index + 1}</td>
-            <td>${item.move1}</td>
-            <td>${item.move2}</td>
+            <td>${move1Icon}</td>
+            <td>${move2Icon}</td>
             <td>${item.result}</td>
         `;
         tbody.appendChild(row);
@@ -595,6 +599,20 @@ function updateHistoryDisplay() {
     
     table.appendChild(tbody);
     historyDiv.appendChild(table);
+}
+
+// Helper function to convert move names to icons
+function getMoveIcon(move) {
+    switch(move) {
+        case 'Rock':
+            return '<i class="fa-solid fa-gem" style="color: #ff6b6b"></i>';
+        case 'Paper':
+            return '<i class="fa-solid fa-file" style="color: #4ecdc4"></i>';
+        case 'Scissors':
+            return '<i class="fa-solid fa-scissors" style="color: #ffd93d"></i>';
+        default:
+            return move;
+    }
 }
 
 function updateHandDisplays(move1, move2) {
@@ -849,6 +867,15 @@ function closeModal(modalId) {
 // Initialize the page
 setupScene();
 update();
+
+// Start autoplay automatically
+setTimeout(() => {
+    const autoplayToggle = document.getElementById('autoplayToggle');
+    if (autoplayToggle) {
+        autoplayToggle.checked = true;
+    }
+    toggleAutoplay();
+}, 500);
 
 // Add event listeners for the simulation selector and settings
 document.addEventListener('DOMContentLoaded', function() {
@@ -1188,8 +1215,22 @@ function drawPendulumTrailsToCanvas(pendulum, targetContext) {
     
     // Cache the color to avoid string parsing on each draw
     const trailColor = pendulum.getTrailColor();
-    targetContext.strokeStyle = trailColor;
-    targetContext.lineWidth = 2.0;
+    
+    // Make the trail brighter by using a more vibrant color
+    let brightTrailColor;
+    if (trailColor.startsWith('#')) {
+        // Parse the hex color and make it brighter
+        const hex = trailColor.replace('#', '');
+        const r = Math.min(255, parseInt(hex.substr(0, 2), 16) + 40);
+        const g = Math.min(255, parseInt(hex.substr(2, 2), 16) + 40);
+        const b = Math.min(255, parseInt(hex.substr(4, 2), 16) + 40);
+        brightTrailColor = `rgb(${r}, ${g}, ${b})`;
+    } else {
+        brightTrailColor = trailColor;
+    }
+    
+    targetContext.strokeStyle = brightTrailColor;
+    targetContext.lineWidth = 1.0; // Thinner line
     targetContext.beginPath();
     
     // For very long trails, use a simplified drawing approach
@@ -1220,20 +1261,20 @@ function drawThreeBodyTrailsToCanvas(system, targetContext) {
     system.bodies.forEach((_, bodyIndex) => {
         if (system.trails[bodyIndex].x.length <= 1) return;
         
-        // Convert hex color to rgba with transparency
+        // Convert hex color to rgba with transparency and make it brighter
         let trailColor;
         const bodyColor = system.colors[bodyIndex];
         
         if (bodyColor.startsWith('#')) {
-            // Parse the hex color
+            // Parse the hex color and make it brighter
             const hex = bodyColor.replace('#', '');
-            const r = parseInt(hex.substr(0, 2), 16);
-            const g = parseInt(hex.substr(2, 2), 16);
-            const b = parseInt(hex.substr(4, 2), 16);
-            trailColor = `rgba(${r}, ${g}, ${b}, 0.8)`;
+            const r = Math.min(255, parseInt(hex.substr(0, 2), 16) + 40);
+            const g = Math.min(255, parseInt(hex.substr(2, 2), 16) + 40);
+            const b = Math.min(255, parseInt(hex.substr(4, 2), 16) + 40);
+            trailColor = `rgba(${r}, ${g}, ${b}, 0.9)`; // Higher opacity for brightness
         } else {
             // Fallback to default colors if not hex
-            trailColor = "rgba(150, 150, 150, 0.8)";
+            trailColor = "rgba(200, 200, 200, 0.9)"; // Brighter default
         }
         
         targetContext.beginPath();
@@ -1265,7 +1306,7 @@ function drawThreeBodyTrailsToCanvas(system, targetContext) {
         }
         
         targetContext.strokeStyle = trailColor;
-        targetContext.lineWidth = Math.max(2, 3 * system.zoomScale);
+        targetContext.lineWidth = Math.max(1, 1.5 * system.zoomScale); // Thinner line
         targetContext.stroke();
     });
 }

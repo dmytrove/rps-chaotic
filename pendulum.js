@@ -255,7 +255,7 @@ class Pendulum {
         const trailLength = this.trailX.length;
         if (trailLength > 1) {
             c.strokeStyle = this.getTrailColor();
-            c.lineWidth = 2.0;
+            c.lineWidth = 1.0;
             c.beginPath();
             
             // Convert first point from world to screen coordinates
@@ -286,11 +286,21 @@ class Pendulum {
             c.stroke();
         }
 
-        // Draw pendulum rods
-        c.strokeStyle = "#303030";
-        c.lineWidth = 10;
+        // Draw pendulum rods with color gradient
+        const startX = cX(this.pos[0]);
+        const startY = cY(this.pos[0]);
+        const endX = cX(this.pos[this.pos.length - 1]);
+        const endY = cY(this.pos[this.pos.length - 1]);
+        
+        // Create gradient for the pendulum rods
+        const gradient = c.createLinearGradient(startX, startY, endX, endY);
+        gradient.addColorStop(0, this.color + "80"); // 50% opacity
+        gradient.addColorStop(1, this.color + "40"); // 25% opacity
+        
+        c.strokeStyle = gradient;
+        c.lineWidth = 3; // Keep the thinner line width
         c.beginPath();
-        c.moveTo(cX(this.pos[0]), cY(this.pos[0]));
+        c.moveTo(startX, startY);
         
         const massesLength = this.masses.length;
         for (let i = 1; i < massesLength; i++) {

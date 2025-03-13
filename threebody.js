@@ -532,23 +532,23 @@ class ThreeBodySystem {
             
             // Validate coordinates to prevent non-finite values
             if (isFinite(x0) && isFinite(y0) && isFinite(x1) && isFinite(y1)) {
-                // Use a gradient for the triangle lines
+                // Use a gradient for the triangle lines with higher opacity
                 try {
                     const gradient = c.createLinearGradient(x0, y0, x1, y1);
-                    gradient.addColorStop(0, this.colors[0] + "40");
-                    gradient.addColorStop(1, this.colors[1] + "40");
+                    gradient.addColorStop(0, this.colors[0] + "80"); // Increased opacity from 40 to 80
+                    gradient.addColorStop(1, this.colors[1] + "80"); // Increased opacity from 40 to 80
                     c.strokeStyle = gradient;
                 } catch (e) {
                     // Fallback to a solid color if gradient creation fails
                     console.warn("Gradient creation failed, using fallback color", e);
-                    c.strokeStyle = this.colors[0] + "40";
+                    c.strokeStyle = this.colors[0] + "80"; // Increased opacity from 40 to 80
                 }
             } else {
                 // Use a solid color if coordinates are invalid
-                c.strokeStyle = this.colors[0] + "40";
+                c.strokeStyle = this.colors[0] + "80"; // Increased opacity from 40 to 80
             }
             
-            c.lineWidth = 2;
+            c.lineWidth = 2.5; // Increased from 2 to 2.5 for better visibility
             c.stroke();
         }
 
