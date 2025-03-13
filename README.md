@@ -1,59 +1,98 @@
-# Chaotic Rock Paper Scissors
+# Rock Paper Scissors - Chaotic Simulations
 
-A unique implementation of Rock Paper Scissors where player moves are determined by physical simulations - a pendulum system and a three-body gravitational system. The project demonstrates how chaotic systems can be used to create engaging game mechanics.
+A unique take on the classic Rock Paper Scissors game, featuring beautiful chaotic simulations using pendulums and three-body systems to determine the moves.
 
 ## Features
 
-- **Two Distinct Simulation Modes:**
-  - **Pendulum Simulation**: Uses a multi-pendulum system where the highest vertex determines the move
-  - **Three-Body Simulation**: Employs gravitational interactions between three bodies where the vertex with the largest angle determines the move
+- **Two Simulation Types**:
+  - **Pendulum Simulation**: A multi-segment pendulum system where the highest point determines the move
+  - **Three-Body Simulation**: A chaotic three-body gravitational system where the largest angle determines the move
 
-- **Real-time Visualization:**
-  - Motion trails for tracking system evolution
-  - Visual indicators for current moves and system state
-  - Dynamic zoom adaptation in three-body mode
-  - Vertex angle display and highlighting
+- **Visual Elements**:
+  - Beautiful trails with dynamic colors
+  - Smooth animations and transitions
+  - Responsive design that works on all screen sizes
+  - Modern, dark-themed UI with intuitive controls
 
-- **Game Features:**
-  - Player vs Player setup with score tracking
-  - Match history with color-coded results
-  - 10-second round timer
-  - Autoplay mode for continuous gameplay
-  - Adjustable simulation parameters
+- **Game Features**:
+  - Real-time move determination based on simulation state
+  - Match history with visual move indicators
+  - Configurable round timer
+  - Score tracking
+  - Autoplay mode for continuous simulation
 
-## How It Works
+- **Technical Features**:
+  - Progressive Web App (PWA) support
+  - Offline functionality
+  - Responsive canvas rendering
+  - Performance-optimized trail rendering
+  - Smooth animations
 
-### Pendulum Mode
-The simulation uses Position Based Dynamics (PBD) to simulate a connected pendulum system. Each player has three vertices, each assigned a move (Rock, Paper, or Scissors). The vertex that reaches the highest position determines the player's move.
+## Setup
 
-### Three-Body Mode
-Each player has a system of three gravitating bodies forming a triangle. The vertex with the largest angle determines the move. The bodies interact according to Newton's law of universal gravitation, creating chaotic but deterministic behavior.
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/rps-chaotic.git
+cd rps-chaotic
+```
 
-## Controls
+2. Open `index.html` in a modern web browser to run the application.
 
-- **New Game**: Start a fresh game
-- **Run**: Start the current round
-- **Step**: Advance simulation by one step
-- **Autoplay**: Toggle automatic continuous gameplay
-- **Simulation Steps**: Adjust simulation accuracy
-- **Speed**: Control simulation speed (Three-Body mode only)
+## Usage
 
-## Implementation Details
+1. **Starting a Game**:
+   - Click the dice icon to start a new game
+   - Use the play button to begin the simulation
 
-The project is built using vanilla JavaScript and HTML5 Canvas for rendering. Key components:
+2. **Choosing Simulation Type**:
+   - Toggle between pendulum and three-body simulations using the switch
+   - Each simulation type offers a unique visual experience
 
-- `pendulum.js`: Implements the pendulum physics system
-- `threebody.js`: Implements the gravitational three-body system
-- `main.js`: Handles game logic and simulation management
-- `styles.css`: Provides responsive and modern UI styling
+3. **Controlling the Simulation**:
+   - Use the autoplay toggle to switch between manual and automatic simulation
+   - In manual mode, click the play button to advance the simulation
+   - In autoplay mode, the simulation runs continuously
 
-## Running the Project
+4. **Game Settings**:
+   - Access settings through the gear icon
+   - Adjust round timer duration
+   - View game information and match history
 
-1. Clone the repository
-2. Open `index.html` in a modern web browser
-3. Select your preferred simulation mode and enjoy!
+## Technical Details
 
-## Requirements
+### Simulation Types
 
-- Modern web browser with HTML5 Canvas support
-- JavaScript enabled
+#### Pendulum Simulation
+- Multi-segment pendulum system
+- Physics-based simulation using Position Based Dynamics (PBD)
+- Move determination based on highest point position
+- Dynamic trail rendering with color gradients
+
+#### Three-Body Simulation
+- Gravitational three-body system
+- Chaotic motion with energy conservation
+- Move determination based on largest angle
+- Optimized trail rendering with performance controls
+
+### Performance Optimizations
+- Trail length limiting for better performance
+- Skip factor for long trails
+- Cached color calculations
+- Efficient coordinate transformations
+- Periodic updates for expensive calculations
+
+## Browser Support
+
+The application is designed to work on modern browsers that support:
+- HTML5 Canvas
+- CSS3 Flexbox and Grid
+- ES6+ JavaScript features
+- Progressive Web App capabilities
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
